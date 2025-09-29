@@ -16,13 +16,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "REACT_APP_API_KEY=${REACT_APP_API_KEY:-e4c160232cb24db5b3511429ccd2ec63} react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serve": "serve -s build -p ${PORT:-3000}",
-    "start:prod": "bash start.sh",
-    "env:check": "node -e \"console.log('REACT_APP_API_KEY:', process.env.REACT_APP_API_KEY ? 'SET' : 'MISSING')\"",
-    "build:debug": "echo 'API Key:' $REACT_APP_API_KEY && npm run build"
+    "serve": "serve -s build -p ${PORT:-3000}"
   },
   "eslintConfig": {
     "extends": [

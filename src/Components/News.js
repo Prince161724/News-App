@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import Newsitem from './Newsitem';
 import Spinnero from './Spinner';
 import PropTypes from 'prop-types';
-import config from '../config';
 
 const News = (props) => {
   const pageSize = 7;
@@ -12,18 +11,10 @@ const News = (props) => {
   const loadingRef = useRef(false);
   const [totalresults, settotalResults] = useState(0);
   const fetching = () => {
-    // Use config for API key
-    const apiKey = config.API_KEY;
+    // Direct API key - no more complexity! 😄
+    const apiKey = 'e4c160232cb24db5b3511429ccd2ec63';
     console.log('🔍 Fetching news with API key:', !!apiKey);
-    console.log('🌍 Environment:', config.isProduction ? 'Production' : 'Development');
-    
-    if (!apiKey) {
-      console.error('❌ API Key not found! Check environment variables.');
-      alert('❌ News API key is missing. Check console for details.');
-      setLoading(false);
-      props.setProgressshowing(false);
-      return;
-    }
+    console.log('🌍 Simple and direct approach!');
 
     props.setProgress(10);
     props.setProgressshowing(true); // ✅ show it
@@ -62,12 +53,8 @@ const News = (props) => {
     xhr.send();
   };
   useEffect(() => {
-    const apiKey = config.API_KEY;
-    if (!apiKey) {
-      console.error('❌ API Key not found in useEffect!');
-      setLoading(false);
-      return;
-    }
+    const apiKey = 'e4c160232cb24db5b3511429ccd2ec63';
+    console.log('📰 Loading more news...');
     
     setLoading(true);
     const xhr = new XMLHttpRequest();

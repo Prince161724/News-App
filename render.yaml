@@ -3,10 +3,5 @@ services:
     name: news-app
     env: node
     plan: free
-    buildCommand: bash build.sh
+    buildCommand: npm ci && npm run build
     startCommand: npx serve -s build -p $PORT
-    envVars:
-      - key: NODE_VERSION
-        value: 20.11.0
-      - key: REACT_APP_API_KEY
-        value: e4c160232cb24db5b3511429ccd2ec63
