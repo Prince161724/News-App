@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Newsitem from './Newsitem';
 import Spinnero from './Spinner';
 import PropTypes from 'prop-types';
+import config from '../config';
 
 const News = (props) => {
   const pageSize = 7;
@@ -11,13 +12,14 @@ const News = (props) => {
   const loadingRef = useRef(false);
   const [totalresults, settotalResults] = useState(0);
   const fetching = () => {
-    // Debug: Check if API key exists
-    const apiKey = process.env.REACT_APP_API_KEY;
-    console.log('API Key exists:', !!apiKey);
-    console.log('Environment:', process.env.NODE_ENV);
+    // Use config for API key
+    const apiKey = config.API_KEY;
+    console.log('🔍 Fetching news with API key:', !!apiKey);
+    console.log('🌍 Environment:', config.isProduction ? 'Production' : 'Development');
     
     if (!apiKey) {
       console.error('❌ API Key not found! Check environment variables.');
+      alert('❌ News API key is missing. Check console for details.');
       setLoading(false);
       props.setProgressshowing(false);
       return;
@@ -60,7 +62,7 @@ const News = (props) => {
     xhr.send();
   };
   useEffect(() => {
-    const apiKey = process.env.REACT_APP_API_KEY;
+    const apiKey = config.API_KEY;
     if (!apiKey) {
       console.error('❌ API Key not found in useEffect!');
       setLoading(false);

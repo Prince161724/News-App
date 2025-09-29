@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "dotenv": "^17.2.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.2",
@@ -19,7 +20,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serve": "serve -s build -p ${PORT:-3000}"
+    "serve": "serve -s build -p ${PORT:-3000}",
+    "start:prod": "bash start.sh",
+    "env:check": "node -e \"console.log('REACT_APP_API_KEY:', process.env.REACT_APP_API_KEY ? 'SET' : 'MISSING')\""
   },
   "eslintConfig": {
     "extends": [
