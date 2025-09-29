@@ -3,10 +3,7 @@ services:
     name: news-app
     env: node
     plan: free
-    buildCommand: |
-      npm ci
-      echo "Building with API key: ${REACT_APP_API_KEY:0:8}..."
-      npm run build
+    buildCommand: bash build.sh
     startCommand: npx serve -s build -p $PORT
     envVars:
       - key: NODE_VERSION

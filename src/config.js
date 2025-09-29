@@ -1,7 +1,9 @@
 // Environment configuration for React app
 const config = {
-  // API Key - React automatically loads REACT_APP_* variables from .env
-  API_KEY: process.env.REACT_APP_API_KEY || 'e4c160232cb24db5b3511429ccd2ec63',
+  // API Key - Multiple fallback methods
+  API_KEY: process.env.REACT_APP_API_KEY || 
+           window.FALLBACK_API_KEY || 
+           'e4c160232cb24db5b3511429ccd2ec63',
   
   // Debug information
   isProduction: process.env.NODE_ENV === 'production',
