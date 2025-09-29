@@ -9,4 +9,4 @@ services:
       - key: NODE_VERSION
         value: 20.11.0
       - key: REACT_APP_API_KEY
-        value: e4c160232cb24db5b3511429ccd2ec63
+        sync: false

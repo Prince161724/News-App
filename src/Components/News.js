@@ -11,11 +11,23 @@ const News = (props) => {
   const loadingRef = useRef(false);
   const [totalresults, settotalResults] = useState(0);
   const fetching = () => {
+    // Debug: Check if API key exists
+    const apiKey = process.env.REACT_APP_API_KEY;
+    console.log('API Key exists:', !!apiKey);
+    console.log('Environment:', process.env.NODE_ENV);
+    
+    if (!apiKey) {
+      console.error('❌ API Key not found! Check environment variables.');
+      setLoading(false);
+      props.setProgressshowing(false);
+      return;
+    }
+
     props.setProgress(10);
     props.setProgressshowing(true); // ✅ show it
     setLoading(true);
     const xhr = new XMLHttpRequest();
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${props.category}&apiKey=${process.env.REACT_APP_API_KEY}&pageSize=${pageSize}&page=1`;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${props.category}&apiKey=${apiKey}&pageSize=${pageSize}&page=1`;
     xhr.open("GET", url);
     xhr.onprogress = (event) => {
       if (event.lengthComputable) {
@@ -27,22 +39,37 @@ const News = (props) => {
     xhr.onload = () => {
       if (xhr.status === 200) {
         const data = JSON.parse(xhr.responseText);
+        console.log('✅ News data received:', data.articles?.length, 'articles');
         setArticles(data.articles);
         settotalResults(data.totalResults);
         setLoading(false);
         props.setProgressshowing(false);
         props.setProgress(100);
+      } else {
+        console.error('❌ API Error:', xhr.status, xhr.responseText);
+        setLoading(false);
+        props.setProgressshowing(false);
       }
     };
     xhr.onerror = () => {
+      console.error('❌ Network Error occurred');
       props.setProgress(0);
+      setLoading(false);
+      props.setProgressshowing(false);
     };
     xhr.send();
   };
   useEffect(() => {
+    const apiKey = process.env.REACT_APP_API_KEY;
+    if (!apiKey) {
+      console.error('❌ API Key not found in useEffect!');
+      setLoading(false);
+      return;
+    }
+    
     setLoading(true);
     const xhr = new XMLHttpRequest();
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${props.category}&apiKey=${process.env.REACT_APP_API_KEY}&pageSize=${pageSize}&page=${page}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${props.category}&apiKey=${apiKey}&pageSize=${pageSize}&page=${page}`;
     xhr.open("GET", url);
     xhr.onload = () => {
       if (xhr.status === 200) {
