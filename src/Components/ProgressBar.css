@@ -1,0 +1,16 @@
+.outer {
+  position: fixed;
+  top: 35px;
+  left: 0;
+  height: 8px;
+  width: 100%;
+  background-color: #eee;
+  z-index: 9999;
+}
+.inner {
+  height: 100%;
+  text-align: right;
+  width: 100%;
+  background-color: #f11313;
+  transition: transform 0.8s ease-out;
+}
