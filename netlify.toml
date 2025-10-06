@@ -1,0 +1,21 @@
+# Netlify configuration for News-App
+# - Build the React app using npm
+# - Publish the `build` directory
+# - Use `netlify/functions` for serverless functions
+[build]
+  command = "npm ci && npm run build"
+  publish = "build"
+  functions = "netlify/functions"
+
+[[redirects]]
+# Proxy client-side requests starting with /api to the Netlify Function named `news`
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+# Single Page App fallback (serve index.html for all other routes)
+  from = "/*"
+  to = "/index.html"
+  status = 200
