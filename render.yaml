@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: news-app
+    env: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npx serve -s build -p $PORT

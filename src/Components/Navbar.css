@@ -1,0 +1,9 @@
+.navbar {
+  position: fixed;
+  background-color: black;
+  transition: top 0.3s ease;
+  width: 100%;
+  top: 0px;
+  width: 100%;
+  z-index: 9998;
+}
