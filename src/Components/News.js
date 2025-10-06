@@ -11,17 +11,15 @@ const News = (props) => {
   const loadingRef = useRef(false);
   const [totalresults, settotalResults] = useState(0);
   const fetching = () => {
-    // Direct API key - no more complexity! 😄
-    const apiKey = 'e4c160232cb24db5b3511429ccd2ec63';
-    console.log('🔍 Fetching news with API key:', !!apiKey);
-    console.log('🌍 Simple and direct approach!');
+    // Use serverless proxy at /api/news to avoid exposing API key and CORS issues
+    console.log('🔍 Fetching news via proxy /api/news');
 
     props.setProgress(10);
-    props.setProgressshowing(true); // ✅ show it
+    props.setProgressshowing(true);
     setLoading(true);
     const xhr = new XMLHttpRequest();
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${props.category}&apiKey=${apiKey}&pageSize=${pageSize}&page=1`;
-    xhr.open("GET", url);
+    let url = `/api/news?country=us&category=${props.category}&pageSize=${pageSize}&page=1`;
+    xhr.open("GET", url, true);
     xhr.onprogress = (event) => {
       if (event.lengthComputable) {
         let percent = (event.loaded / event.total) * 100;
@@ -53,13 +51,12 @@ const News = (props) => {
     xhr.send();
   };
   useEffect(() => {
-    const apiKey = 'e4c160232cb24db5b3511429ccd2ec63';
-    console.log('📰 Loading more news...');
+  console.log('📰 Loading more news via proxy...');
     
-    setLoading(true);
-    const xhr = new XMLHttpRequest();
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=${props.category}&apiKey=${apiKey}&pageSize=${pageSize}&page=${page}`;
-    xhr.open("GET", url);
+  setLoading(true);
+  const xhr = new XMLHttpRequest();
+  let url = `/api/news?country=us&category=${props.category}&pageSize=${pageSize}&page=${page}`;
+  xhr.open("GET", url, true);
     xhr.onload = () => {
       if (xhr.status === 200) {
         const data = JSON.parse(xhr.responseText);
